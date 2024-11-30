@@ -48,7 +48,7 @@ class BTreeNode
      * @param Closure $comparator Comparator function which compares two elements.
      * @return int The position of searched value in array K.
      */
-    public function position(object $value, Closure $comparator): int
+    public function position(mixed $value, Closure $comparator): int
     {
         if ($this->m == 0) {
             return 0;
@@ -70,7 +70,7 @@ class BTreeNode
      * @param int $index Place to insert new value
      * @param object $insertedK New value to be inserted.
      */
-    private function insertIntoK(int $index, object $insertedK): void
+    private function insertIntoK(int $index, mixed $insertedK): void
     {
         for ($i = $this->m; $i > $index; $i--) {
             $this->K[$i] = $this->K[$i - 1];
@@ -134,7 +134,7 @@ class BTreeNode
      * @param bool $isRoot If true, value is inserted as a root node, otherwise false.
      * @return ?BTreeNode If inserted node results in a creation of a node, the function returns that node, otherwise null.
      */
-    public function insertNode(object $value, Closure $comparator, bool $isRoot): ?BTreeNode
+    public function insertNode(mixed $value, Closure $comparator, bool $isRoot): ?BTreeNode
     {
         $child = $this->position($value, $comparator);
         if (!$this->children[$child]->leaf) {
@@ -208,7 +208,7 @@ class BTreeNode
         return $this->K[$index];
     }
 
-    public function getChild(int $index): array
+    public function getChild(int $index): BTreeNode
     {
         return $this->children[$index];
     }

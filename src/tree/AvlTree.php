@@ -158,7 +158,7 @@ class AvlTree extends Tree
         while (!$c->isEmpty()){
             $x = $c->pop();
             if ($x != null){
-                $x->setHeight(max($this->height($x->getLeft())), $this->height($x->getRight())) + 1;
+                $x->setHeight(max($this->height($x->getLeft()), $this->height($x->getRight())) + 1);
                 if (abs($this->height($x->getLeft()) - $this->height($x->getRight())) == 2){
                     if ($dir1 == $LEFT){
                         if ($dir2 == $LEFT){

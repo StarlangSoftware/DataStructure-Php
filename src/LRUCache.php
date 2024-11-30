@@ -37,7 +37,7 @@ class LRUCache
      * @param string|int $key K type input key.
      * @return ?object data value if the Map has the given key, null otherwise.
      */
-    public function get(string|int $key): ?object{
+    public function get(string|int $key): mixed{
         if (array_key_exists($key, $this->map)) {
             $value = $this->map[$key];
             unset($this->map[$key]);
@@ -55,7 +55,7 @@ class LRUCache
      * @param string|int $key type input.
      * @param object $value type input
      */
-    public function add(string|int $key, object $value): void{
+    public function add(string|int $key, mixed $value): void{
         if (count($this->map) == $this->cacheSize) {
             $key = $this->map[0];
             unset($this->map[$key]);

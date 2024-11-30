@@ -79,7 +79,7 @@ class CounterHashMap
      * @param float $threshold double value.
      * @return int | string | null type maxKey if greater than the given threshold, null otherwise.
      */
-    public function max(float $threshold): int | string | null
+    public function max(float $threshold = 0.0): int | string | null
     {
         $maxCount = 0;
         $total = 0;
@@ -102,8 +102,8 @@ class CounterHashMap
      *
      * @param array $toBeAdded CounterHashMap to be added to this counterHashMap.
      */
-    public function add(array $toBeAdded): void{
-        foreach ($toBeAdded as $key => $value) {
+    public function add(CounterHashMap $toBeAdded): void{
+        foreach ($toBeAdded->hashMap as $key => $value) {
             $this->putNTimes($key, $value);
         }
     }
@@ -119,11 +119,11 @@ class CounterHashMap
     public function topN(int $n): array {
         $result = [];
         foreach ($this->hashMap as $key => $value) {
-            $result[$key] = $value;
+            $result[] = array($key, $value);
         }
         for ($i = 0; $i < count($result); $i++) {
             for ($j = $i + 1; $j < count($result); $j++) {
-                if ($result[$i] < $result[$j]) {
+                if ($result[$i][1] < $result[$j][1]) {
                     $tmp = $result[$i];
                     $result[$i] = $result[$j];
                     $result[$j] = $tmp;
@@ -131,5 +131,9 @@ class CounterHashMap
             }
         }
         return array_slice($result, 0, $n, true);
+    }
+
+    public function size(){
+        return count($this->hashMap);
     }
 }

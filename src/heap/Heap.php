@@ -2,6 +2,8 @@
 
 namespace olcaytaner\DataStructure\heap;
 
+use Closure;
+
 /**
  * <p>The heap data structure is a binary tree structure consisting of N elements. It shows the basic properties of the
  * binary tree data structure. The heap has a root node and each node of it has at most two child nodes
@@ -18,16 +20,17 @@ class Heap
     private array $array;
     private int $count;
     private int $n;
-    protected HeapComparator $comparator;
+    protected Closure $comparator;
 
     /**
      * Constructor of the heap. According to the comparator, the heap could be min or max heap.
      * @param int $N Maximum number of elements in the heap.
-     * @param HeapComparator $comparator Comparator function to compare two elements.
+     * @param Closure $comparator Comparator function to compare two elements.
      */
-    function __construct(int $N, HeapComparator $comparator)
+    function __construct(int $N, Closure $comparator)
     {
         $this->n = $N;
+        $this->count = 0;
         $this->comparator = $comparator;
         $this->array = [];
     }
@@ -45,14 +48,14 @@ class Heap
      * @param int $index1 Index of the first node to swap.
      * @param int $index2 Index of the second node to swap.
      */
-    private function swapNode(int $index1, int $index2)
+    private function swapNode(int $index1, int $index2): void
     {
         $tmp = $this->array[$index1];
         $this->array[$index1] = $this->array[$index2];
         $this->array[$index2] = $tmp;
     }
 
-    protected function compare(object $obj1, object $obj2): int
+    protected function compare(mixed $obj1, mixed $obj2): int
     {
         return 0;
     }
@@ -69,9 +72,9 @@ class Heap
     {
         $left = 2 * $no + 1;
         $right = 2 * $no + 2;
-        while (($left < $this->count && $this->compare($this->array[$no].getData(), $this->array[$left].getData()) < 0) ||
-                ($right < $this->count && $this->compare($this->array[$no].getData(), $this->array[$right].getData()) < 0)) {
-            if ($right >= $this->count || $this->compare($this->array[$left].getData(), $this->array[$right].getData()) > 0) {
+        while (($left < $this->count && $this->compare($this->array[$no]->getData(), $this->array[$left]->getData()) < 0) ||
+                ($right < $this->count && $this->compare($this->array[$no]->getData(), $this->array[$right]->getData()) < 0)) {
+            if ($right >= $this->count || $this->compare($this->array[$left]->getData(), $this->array[$right]->getData()) > 0) {
                 $this->swapNode($no, $left);
                 $no = $left;
             } else {
@@ -93,7 +96,7 @@ class Heap
     protected function percolateUp(int $no): void
     {
         $parent = floor(($no - 1) / 2);
-        while ($parent >= 0 && $this->compare($this->array[$parent].getData(), $this->array[$no].getData()) < 0){
+        while ($parent >= 0 && $this->compare($this->array[$parent]->getData(), $this->array[$no]->getData()) < 0){
             $this->swapNode($parent, $no);
             $no = $parent;
             $parent = floor(($no - 1) / 2);
@@ -105,24 +108,24 @@ class Heap
      * element of the heap is set to the last element of the heap. After that, in order to restore the max-heap
      * property, we percolate down the tree using the function. As a last step, the number of element in the heap is
      * decremented by one.
-     * @return object The first element
+     * @return mixed The first element
      */
-    public function delete(): object
+    public function delete(): mixed
     {
         $tmp = $this->array[0];
         $this->array[0] = $this->array[$this->count - 1];
         $this->percolateDown(0);
         $this->count = $this->count - 1;
-        return $tmp.getData();
+        return $tmp->getData();
     }
 
     /**
      * The insertion of a new element to the heap, proceeds from the leaf nodes to the root node. First the new element
      * is added to the end of the heap, then as long as the max-heap property is corrupted, the new element switches
      * place with its parent.
-     * @param object $data New element to be inserted.
+     * @param mixed $data New element to be inserted.
      */
-    public function insert(object $data): void
+    public function insert(mixed $data): void
     {
         if ($this->count < $this->n) {
             $this->count = $this->count + 1;

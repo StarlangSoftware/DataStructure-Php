@@ -36,7 +36,7 @@ class Tree
      * @return ?TreeNode If the value exists in the tree, the function returns the node that contains the node. Otherwise, it
      * returns null.
      */
-    public function search(object $value): ?TreeNode
+    public function search(mixed $value): ?TreeNode
     {
         $d = $this->root;
         while ($d != null) {

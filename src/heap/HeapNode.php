@@ -4,13 +4,13 @@ namespace olcaytaner\DataStructure\heap;
 
 class HeapNode
 {
-    private object $data;
+    private mixed $data;
 
     /**
      * Constructor of HeapNode.
      * @param object $data Data to be stored in the heap node.
      */
-    public function __construct(object $data)
+    public function __construct(mixed $data)
     {
         $this->data = $data;
     }
@@ -19,7 +19,7 @@ class HeapNode
      * Mutator of the data field
      * @return object Data
      */
-    public function getData(): object
+    public function getData(): mixed
     {
         return $this->data;
     }

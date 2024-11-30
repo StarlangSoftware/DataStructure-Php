@@ -2,15 +2,18 @@
 
 namespace olcaytaner\DataStructure\heap;
 
+use Closure;
+
 class MinHeap extends Heap
 {
-    function __construct(int $N, HeapComparator $comparator)
+    function __construct(int $N, Closure $comparator)
     {
         parent::__construct($N, $comparator);
     }
 
-    function compare(object $obj1, object $obj2): int
+    function compare(mixed $obj1, mixed $obj2): int
     {
-        return -$this->comparator->compare($obj1, $obj2);
+        $comparator = $this->comparator;
+        return -$comparator($obj1, $obj2);
     }
 }
