@@ -1,7 +1,5 @@
 <?php
 
-namespace olcaytaner\test;
-
 use olcaytaner\DataStructure\LRUCache;
 use PHPUnit\Framework\TestCase;
 

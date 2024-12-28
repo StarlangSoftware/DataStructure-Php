@@ -1,7 +1,5 @@
 <?php
 
-namespace olcaytaner\test;
-
 use olcaytaner\DataStructure\heap\MaxHeap;
 use olcaytaner\DataStructure\heap\MinHeap;
 use PHPUnit\Framework\TestCase;

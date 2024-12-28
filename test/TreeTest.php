@@ -1,7 +1,5 @@
 <?php
 
-namespace olcaytaner\test;
-
 use olcaytaner\DataStructure\tree\AvlTree;
 use olcaytaner\DataStructure\tree\BTree;
 use olcaytaner\DataStructure\tree\Tree;

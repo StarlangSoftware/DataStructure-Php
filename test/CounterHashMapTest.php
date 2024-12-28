@@ -1,7 +1,6 @@
 <?php
 
-namespace olcaytaner\DataStructure;
-
+use olcaytaner\DataStructure\CounterHashMap;
 use PHPUnit\Framework\TestCase;
 
 class CounterHashMapTest extends TestCase
