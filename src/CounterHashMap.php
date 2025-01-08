@@ -136,4 +136,8 @@ class CounterHashMap
     public function size(){
         return count($this->hashMap);
     }
+
+    public function keys(): array{
+        return array_keys($this->hashMap);
+    }
 }
